@@ -22,15 +22,16 @@ router.get("/:id", async (req, res) => {
   try {
     const categoryId = await Category.findByPk(req.params.id, {
       include: [{ model: Product }],
-    })
+    });
     if (!categoryId) {
-      res.status(404).json({message: 'No ID for that category has been found.'});
-    }
-    else {
+      res
+        .status(404)
+        .json({ message: "No ID for that category has been found." });
+    } else {
       res.status(200).json(categoryId);
-    } 
-  }catch (error) {
-      res.status(500).json(err);
+    }
+  } catch (error) {
+    res.status(500).json(err);
   }
 });
 
@@ -49,15 +50,17 @@ router.put("/:id", async (req, res) => {
   try {
     const updatedCategory = await Category.update(req.body, {
       where: {
-        id: req.params.id
-      }
-    })
+        id: req.params.id,
+      },
+    });
     if (!updatedCategory) {
-      res.status(404).json({message: "No ID for that category has been found."});
+      res
+        .status(404)
+        .json({ message: "No ID for that category has been found." });
     } else {
-      res.status(200).json(updatedCategoryId);
+      res.status(200).json(updatedCategory);
     }
-  } catch(err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -67,15 +70,17 @@ router.delete("/:id", async (req, res) => {
   try {
     const deletedCategory = await Category.destroy({
       where: {
-        id: req.params.id
-      }
-    })
+        id: req.params.id,
+      },
+    });
     if (!deletedCategory) {
-      res.status(404).json({message: "No ID for that category has been found."});
+      res
+        .status(404)
+        .json({ message: "No ID for that category has been found." });
     } else {
-      res.status(200).json(updatedCategoryId);
+      res.status(200).json(deletedCategory);
     }
-  } catch(err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
